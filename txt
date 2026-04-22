@@ -1,0 +1,13 @@
+ros2 run mavros mavros_node --ros-args -p fcu_url:="serial:///dev/ttyACM0:115200" -p system_id:=255
+
+
+ros2 run camera_ros camera_node --ros-args \
+  -p width:=640 \
+  -p height:=480 \
+  -p frame_rate:=30.0
+
+  ros2 service call /mavros/set_mode mavros_msgs/srv/SetMode "{custom_mode: 'MANUAL'}"
+  ros2 service call /mavros/cmd/arming mavros_msgs/srv/CommandBool "{value: true}"
+  
+
+  ros2 topic pub -r 10 /mavros/rc/override mavros_msgs/msg/OverrideRCIn "{channels: [1500, 1500, 1500, 1500, 1400, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500]}"

@@ -1,0 +1,58 @@
+Command to run mavros
+ros2 run mavros mavros_node --ros-args -p fcu_url:="udp://127.0.0.1:14550@" -p gcs_url:="udp://@127.0.0.1:14551" -p system_id:=255
+
+
+Command to run arduSub
+cd ~/ardupilot/ArduSub
+sim_vehicle.py -v ArduSub -f vectored_6dof --model JSON -L RATBeach \
+    --out=udp:0.0.0.0:14550 --console
+
+Command to start gazebo
+ cd ~/hydronaut_ws
+export GZ_SIM_RESOURCE_PATH=~/hydronaut_ws/src/hydronaut_description/models
+export GZ_SIM_RESOURCE_PATH=~/hydronaut_ws/src/hydronaut_description/models:~/hydronaut_ws/src/hydronaut_pilot/models:$GZ_SIM_RESOURCE_PATH
+
+gz sim ~/hydronaut_ws/src/hydronaut_description/worlds/hydronaut_ocean.sdf -r
+
+
+
+To run the script
+cd ~/hydronaut_ws
+cd scripts
+python3 alt_hold_driver.py
+
+
+TO CAMERA BRIDGE
+
+ros2 run ros_gz_bridge parameter_bridge /camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image
+ros2 run rqt_image_view rqt_image_view
+
+
+
+Manager node
+
+source ~/hydronaut_ws/install/setup.bash
+ros2 run hydronaut_pilot manager
+
+Controller Node
+source ~/hydronaut_ws/install/setup.bash
+ros2 run hydronaut_pilot base_controller
+
+General Script
+source ~/hydronaut_ws/install/setup.bash
+ros2 run hydronaut_pilot yolo_tracker
+
+
+ros2 run camera_ros camera_node --ros-args -p width:=640 -p height:=480
+
+ros2 topic echo /mavros/rc/out
+
+ros2 run mavros mavros_node --ros-args -p fcu_url:="serial:///dev/ttyACM0:115200" -p system_id:=255
+
+
+ros2 service call /mavros/set_mode mavros_msgs/srv/SetMode "{custom_mode: 'MANUAL'}"
+ros2 service call /mavros/cmd/arming mavros_msgs/srv/CommandBool "{value: true}"
+ros2 topic pub -r 10 /mavros/rc/override mavros_msgs/msg/OverrideRCIn "{channels: [1500, 1500, 1500, 1500, 1400, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 1500]}"
+
+
+
