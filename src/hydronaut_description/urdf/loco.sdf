@@ -1,0 +1,454 @@
+<sdf version='1.11'>
+  <model name='loco'>
+    <link name='base_link'>
+      <inertial>
+        <pose>0.0041666666666666666 0 -0.049305555555555561 0 0 0</pose>
+        <mass>21.600000000000001</mass>
+        <inertia>
+          <ixx>2.5008395833333328</ixx>
+          <ixy>0</ixy>
+          <ixz>-0.0044375000000000013</ixz>
+          <iyy>2.5274645833333329</iyy>
+          <iyz>0</iyz>
+          <izz>2.5267249999999999</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_fixed_joint_lump__main_hull_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.5 0.44 0.10000000000000001</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='base_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/habib/loco_ros2_ws/src/loco_description/meshes/base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.987500012 1 1 1</diffuse>
+          <ambient>0.987500012 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__camera_link_visual_1'>
+        <pose>0.29999999999999999 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.050000000000000003 0.050000000000000003 0.050000000000000003</size>
+          </box>
+        </geometry>
+        <material>
+          <diffuse>0.37500003 0.37500003 0.37500003 1</diffuse>
+          <ambient>0.37500003 0.37500003 0.37500003 1</ambient>
+        </material>
+      </visual>
+      <sensor name='imu_sensor' type='imu'>
+        <always_on>true</always_on>
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+        <topic>imu</topic>
+        <imu/>
+      </sensor>
+      <sensor name='front_camera' type='camera'>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>camera</topic>
+        <camera>
+          <horizontal_fov>1.3959999999999999</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+        </camera>
+        <pose>0.29999999999999999 0 0 0 0 0</pose>
+      </sensor>
+    </link>
+    <joint name='joint_bl' type='revolute'>
+      <pose relative_to='base_link'>-0.20300000000000001 0.16600000000000001 -0.002 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_bl</child>
+      <axis>
+        <xyz>0.70699999999999996 0.70699999999999996 0</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_bl'>
+      <pose relative_to='joint_bl'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.10000000000000001</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name='thruster_bl_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/habib/loco_ros2_ws/src/loco_description/meshes/Link_BL.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37500003 0.37500003 0.37500003 1</diffuse>
+          <ambient>0.37500003 0.37500003 0.37500003 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint_br' type='revolute'>
+      <pose relative_to='base_link'>-0.20399999999999999 -0.16600000000000001 0 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_br</child>
+      <axis>
+        <xyz>0.70699999999999996 -0.70699999999999996 0</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_br'>
+      <pose relative_to='joint_br'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.10000000000000001</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name='thruster_br_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/habib/loco_ros2_ws/src/loco_description/meshes/Link_BR.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37500003 0.37500003 0.37500003 1</diffuse>
+          <ambient>0.37500003 0.37500003 0.37500003 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint_cl' type='revolute'>
+      <pose relative_to='base_link'>-0.002 0.13600000000000001 -0.010999999999999999 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_cl</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_cl'>
+      <pose relative_to='joint_cl'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.10000000000000001</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name='thruster_cl_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/habib/loco_ros2_ws/src/loco_description/meshes/Link_CL.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37500003 0.37500003 0.37500003 1</diffuse>
+          <ambient>0.37500003 0.37500003 0.37500003 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint_cr' type='revolute'>
+      <pose relative_to='base_link'>-0.0030000000000000001 -0.13500000000000001 -0.01 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_cr</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_cr'>
+      <pose relative_to='joint_cr'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.10000000000000001</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name='thruster_cr_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/habib/loco_ros2_ws/src/loco_description/meshes/link_CR.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37500003 0.37500003 0.37500003 1</diffuse>
+          <ambient>0.37500003 0.37500003 0.37500003 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint_fl' type='revolute'>
+      <pose relative_to='base_link'>0.191 0.17799999999999999 -0.002 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_fl</child>
+      <axis>
+        <xyz>0.70699999999999996 -0.70699999999999996 0</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_fl'>
+      <pose relative_to='joint_fl'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.10000000000000001</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name='thruster_fl_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/habib/loco_ros2_ws/src/loco_description/meshes/link_FL.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37500003 0.37500003 0.37500003 1</diffuse>
+          <ambient>0.37500003 0.37500003 0.37500003 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint_fr' type='revolute'>
+      <pose relative_to='base_link'>0.19 -0.17699999999999999 -0.002 0 0 0</pose>
+      <parent>base_link</parent>
+      <child>thruster_fr</child>
+      <axis>
+        <xyz>0.70699999999999996 0.70699999999999996 0</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='thruster_fr'>
+      <pose relative_to='joint_fr'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.10000000000000001</mass>
+        <inertia>
+          <ixx>0.001</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.001</iyy>
+          <iyz>0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name='thruster_fr_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>file:///home/habib/loco_ros2_ws/src/loco_description/meshes/Link_FR.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.37500003 0.37500003 0.37500003 1</diffuse>
+          <ambient>0.37500003 0.37500003 0.37500003 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <plugin name='gz::sim::systems::Thruster' filename='gz-sim-thruster-system'>
+      <joint_name>joint_fl</joint_name>
+      <thrust_coefficient>0.05</thrust_coefficient>
+      <fluid_density>1000</fluid_density>
+      <propeller_diameter>0.1</propeller_diameter>
+    </plugin>
+    <plugin name='gz::sim::systems::Thruster' filename='gz-sim-thruster-system'>
+      <joint_name>joint_fr</joint_name>
+      <thrust_coefficient>0.05</thrust_coefficient>
+      <fluid_density>1000</fluid_density>
+      <propeller_diameter>0.1</propeller_diameter>
+    </plugin>
+    <plugin name='gz::sim::systems::Thruster' filename='gz-sim-thruster-system'>
+      <joint_name>joint_bl</joint_name>
+      <thrust_coefficient>0.05</thrust_coefficient>
+      <fluid_density>1000</fluid_density>
+      <propeller_diameter>0.1</propeller_diameter>
+    </plugin>
+    <plugin name='gz::sim::systems::Thruster' filename='gz-sim-thruster-system'>
+      <joint_name>joint_br</joint_name>
+      <thrust_coefficient>0.05</thrust_coefficient>
+      <fluid_density>1000</fluid_density>
+      <propeller_diameter>0.1</propeller_diameter>
+    </plugin>
+    <plugin name='gz::sim::systems::Thruster' filename='gz-sim-thruster-system'>
+      <joint_name>joint_cl</joint_name>
+      <thrust_coefficient>0.05</thrust_coefficient>
+      <fluid_density>1000</fluid_density>
+      <propeller_diameter>0.1</propeller_diameter>
+    </plugin>
+    <plugin name='gz::sim::systems::Thruster' filename='gz-sim-thruster-system'>
+      <joint_name>joint_cr</joint_name>
+      <thrust_coefficient>0.05</thrust_coefficient>
+      <fluid_density>1000</fluid_density>
+      <propeller_diameter>0.1</propeller_diameter>
+    </plugin>
+    <plugin name='gz::sim::systems::Hydrodynamics' filename='gz-sim-hydrodynamics-system'>
+      <link_name>base_link</link_name>
+      <xDotU>-10.0</xDotU>
+      <yDotV>-10.0</yDotV>
+      <zDotW>-10.0</zDotW>
+      <kDotP>-1.0</kDotP>
+      <mDotQ>-1.0</mDotQ>
+      <nDotR>-1.0</nDotR>
+      <xU>-50.0</xU>
+      <yV>-50.0</yV>
+      <zW>-50.0</zW>
+      <kP>-10.0</kP>
+      <mQ>-10.0</mQ>
+      <nR>-20.0</nR>
+    </plugin>
+   <plugin name="ArduPilotPlugin" filename="ArduPilotPlugin">
+      <fdm_addr>127.0.0.1</fdm_addr>
+      <fdm_port_in>9002</fdm_port_in>
+      <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
+      <lock_step>1</lock_step>
+      
+      <no_time_sync>1</no_time_sync>
+
+      <modelXYZToAirplaneXForwardZDown>0 0 0 3.141592653589793 0 0</modelXYZToAirplaneXForwardZDown>
+
+      <gazeboXYZToNED>0 0 0 3.141592653589793 0 1.5707963267948966</gazeboXYZToNED>
+
+      <imuName>imu_sensor</imuName>
+
+      <control channel='0' servomax='1900' servomin='1100'>
+        <type>COMMAND</type>
+        <jointName>joint_fr</jointName>
+        <cmd_topic>/model/loco/joint/joint_fr/cmd_thrust</cmd_topic>
+        <offset>-1500</offset>
+        <multiplier>0.05</multiplier>
+      </control>
+      <control channel='1' servomax='1900' servomin='1100'>
+        <type>COMMAND</type>
+        <jointName>joint_fl</jointName>
+        <cmd_topic>/model/loco/joint/joint_fl/cmd_thrust</cmd_topic>
+        <offset>-1500</offset>
+        <multiplier>0.05</multiplier>
+      </control>
+      <control channel='2' servomax='1900' servomin='1100'>
+        <type>COMMAND</type>
+        <jointName>joint_br</jointName>
+        <cmd_topic>/model/loco/joint/joint_br/cmd_thrust</cmd_topic>
+        <offset>-1500</offset>
+        <multiplier>0.05</multiplier>
+      </control>
+      <control channel='3' servomax='1900' servomin='1100'>
+        <type>COMMAND</type>
+        <jointName>joint_bl</jointName>
+        <cmd_topic>/model/loco/joint/joint_bl/cmd_thrust</cmd_topic>
+        <offset>-1500</offset>
+        <multiplier>0.05</multiplier>
+      </control>
+      <control channel='4' servomax='1900' servomin='1100'>
+        <type>COMMAND</type>
+        <jointName>joint_cr</jointName>
+        <cmd_topic>/model/loco/joint/joint_cr/cmd_thrust</cmd_topic>
+        <offset>-1500</offset>
+        <multiplier>0.05</multiplier>
+      </control>
+      <control channel='5' servomax='1900' servomin='1100'>
+        <type>COMMAND</type>
+        <jointName>joint_cl</jointName>
+        <cmd_topic>/model/loco/joint/joint_cl/cmd_thrust</cmd_topic>
+        <offset>-1500</offset>
+        <multiplier>0.05</multiplier>
+      </control>
+    </plugin>
+    <frame name='camera_joint' attached_to='base_link'>
+      <pose>0.29999999999999999 0 0 0 0 0</pose>
+    </frame>
+    <frame name='camera_link' attached_to='camera_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+  </model>
+</sdf>

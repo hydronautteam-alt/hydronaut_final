@@ -1,0 +1,199 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="hydronaut_pool">
+    
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics" />
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands" />
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster" />
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu"/>
+    
+    <plugin filename="gz-sim-buoyancy-system" name="gz::sim::systems::Buoyancy">
+      <graded_buoyancy>
+        <default_density>1000</default_density>
+        <density_change>
+          <above_depth>0</above_depth>
+          <density>1</density>
+        </density_change>
+      </graded_buoyancy>
+    </plugin>
+
+    <physics name="1ms" type="ignore">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <scene>
+      <ambient>1.0 1.0 1.0 1</ambient>
+      <background>0.1 0.2 0.3 1</background>
+      <shadows>false</shadows>
+    </scene>
+    <light type="directional" name="sun">
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="water_plane">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="link">
+        <visual name="water_plane">
+          <geometry>
+            <plane><size>20 20</size><normal>0 0 1</normal></plane>
+          </geometry>
+          <material>
+            <ambient>0 0.5 1 0.4</ambient>
+            <diffuse>0 0.5 1 0.4</diffuse>
+            <specular>0.5 0.5 1 0.1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pool_floor">
+      <static>true</static>
+      <pose>0 0 -3 0 0 0</pose> 
+      <link name="link">
+        <collision name="collision"><geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry></collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry>
+          <material><ambient>0.6 0.6 0.6 1</ambient><diffuse>0.6 0.6 0.6 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+<actor name="swimming">
+      <skin>
+        <filename>model://Swimming/Swimming.dae</filename>
+        <scale>1.0</scale>
+      </skin>
+      <animation name="swimming_anim">
+        <filename>model://Swimming/Swimming.dae</filename>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <script>
+        <loop>true</loop>
+        <trajectory id="0" type="swimming_anim">
+          <waypoint><time>0.0</time><pose>5.0 0.0 -1.5 1.5708 0 3.14159</pose></waypoint>
+          <waypoint><time>4.0</time><pose>3.53 3.53 -1.5 1.5708 0 -2.356</pose></waypoint>
+          <waypoint><time>8.0</time><pose>0.0 5.0 -1.5 1.5708 0 -1.5708</pose></waypoint>
+          <waypoint><time>12.0</time><pose>-3.53 3.53 -1.5 1.5708 0 -0.785</pose></waypoint>
+          <waypoint><time>16.0</time><pose>-5.0 0.0 -1.5 1.5708 0 0.0</pose></waypoint>
+          <waypoint><time>20.0</time><pose>-3.53 -3.53 -1.5 1.5708 0 0.785</pose></waypoint>
+          <waypoint><time>24.0</time><pose>0.0 -5.0 -1.5 1.5708 0 1.5708</pose></waypoint>
+          <waypoint><time>28.0</time><pose>3.53 -3.53 -1.5 1.5708 0 2.356</pose></waypoint>
+          <waypoint><time>32.0</time><pose>5.0 0.0 -1.5 1.5708 0 3.14159</pose></waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+    <model name="blue_line_track">
+      <static>true</static>
+      
+      <link name="track_link">
+        
+        <visual name="straight_leg">
+          <pose>4.0 0 -2.98 0 0 0</pose> 
+          <geometry>
+            <box><size>8.0 0.2 0.01</size></box>
+          </geometry>
+          <material>
+            <ambient>0.0 0.0 1.0 1.0</ambient> 
+            <diffuse>0.0 0.0 1.0 1.0</diffuse>
+          </material>
+        </visual>
+
+        <visual name="turn_leg">
+          <pose>7.8 3.0 -2.98 0 0 0</pose> 
+          <geometry>
+            <box><size>0.2 6.0 0.01</size></box> 
+          </geometry>
+          <material>
+            <ambient>0.0 0.0 1.0 1.0</ambient> 
+            <diffuse>0.0 0.0 1.0 1.0</diffuse>
+          </material>
+        </visual>
+
+      </link>
+    </model>
+
+
+   <model name="red_target_ball">
+      <pose>5.0 2.0 -2.0 0 0 0</pose>
+      
+      <link name="ball_link">
+        <inertial>
+          <pose>0 0 0 0 0 0</pose>
+          <mass>33.51</mass>
+          <inertia>
+            <ixx>0.536</ixx> <ixy>0</ixy> <ixz>0</ixz>
+            <iyy>0.536</iyy> <iyz>0</iyz> <izz>0.536</izz>
+          </inertia>
+        </inertial>
+
+        <visual name="ball_visual">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+          <material>
+            <ambient>1.0 0.0 0.0 1</ambient>
+            <diffuse>1.0 0.0 0.0 1</diffuse>
+          </material>
+        </visual>
+        
+        <collision name="ball_collision">
+          <geometry>
+            <sphere><radius>0.2</radius></sphere>
+          </geometry>
+        </collision>
+      </link>
+      
+      </model>
+  
+
+    <model name="pool_walls">
+      <static>true</static>
+      <pose>0 0 -1.5 0 0 0</pose>
+      <link name="link">
+        
+        <collision name="wall_n_col"><pose>0 10 0 0 0 0</pose><geometry><box><size>20 0.2 3</size></box></geometry></collision>
+        <visual name="wall_n_vis">
+          <pose>0 10 0 0 0 0</pose>
+          <geometry><box><size>20 0.2 3</size></box></geometry>
+          <material><ambient>0 0 0.2 1</ambient><diffuse>0 0 0.5 1</diffuse></material>
+        </visual>
+        
+        <collision name="wall_e_col"><pose>10 0 0 0 0 0</pose><geometry><box><size>0.2 20 3</size></box></geometry></collision>
+        <visual name="wall_e_vis">
+          <pose>10 0 0 0 0 0</pose>
+          <geometry><box><size>0.2 20 3</size></box></geometry>
+          <material><ambient>0 0 0.2 1</ambient><diffuse>0 0 0.5 1</diffuse></material>
+        </visual>
+        
+        <collision name="wall_w_col"><pose>-10 0 0 0 0 0</pose><geometry><box><size>0.2 20 3</size></box></geometry></collision>
+        <visual name="wall_w_vis">
+          <pose>-10 0 0 0 0 0</pose>
+          <geometry><box><size>0.2 20 3</size></box></geometry>
+          <material><ambient>0 0 0.2 1</ambient><diffuse>0 0 0.5 1</diffuse></material>
+        </visual>
+
+        <collision name="wall_s_col"><pose>0 -10 0 0 0 0</pose><geometry><box><size>20 0.2 3</size></box></geometry></collision>
+        <visual name="wall_s_vis">
+          <pose>0 -10 0 0 0 0</pose>
+          <geometry><box><size>20 0.2 3</size></box></geometry>
+          <material><ambient>0 0 0.2 1</ambient><diffuse>0 0 0.5 1</diffuse></material>
+        </visual>
+
+      </link>
+    </model>
+
+    <include>
+      <uri>model://hydronaut</uri>
+      <pose>0 0 -0.5 0 0 0</pose>
+    </include>
+    
+
+  </world>
+</sdf>
