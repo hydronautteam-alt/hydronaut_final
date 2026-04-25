@@ -43,7 +43,12 @@ source ~/hydronaut_ws/install/setup.bash
 ros2 run hydronaut_pilot yolo_tracker
 
 
-ros2 run camera_ros camera_node --ros-args -p width:=640 -p height:=480
+#(ros2 run camera_ros camera_node --ros-args -p width:=640 -p height:=480)
+
+#using this command for rotated camera........
+ros2 run camera_ros camera_node --ros-args -p orientation:=180
+
+
 
 ros2 topic echo /mavros/rc/out
 
